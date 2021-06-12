@@ -1,7 +1,10 @@
-const X_CLASS = 'x';
-const CIRCLE_CLASS = 'circle';
+// winning combination based on the cell index no.
 const WINNING_COMBINATIONS = [ [0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6],
 [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]];
+
+// Referencing the id from index.html.
+const X_CLASS = 'x';
+const CIRCLE_CLASS = 'circle';
 const cellElements = document.querySelectorAll('[data-cell]');
 const winningMessageTextElement = document.querySelector('[data-winning-message-text]');
 const board = document.getElementById('board');
@@ -12,6 +15,7 @@ startGame();
 
 restartButton.addEventListener('click', startGame);
 
+// Remove all the class when the new game starts.
 function startGame(){
     circleTurn = false;
 
@@ -27,6 +31,7 @@ function startGame(){
     winningMessageElement.classList.remove('show');
 }
 
+// Function that will decides whose turn, whose mark to put, check for win/draw and start a new game.
 function handleClick(e){
     const cell = e.target;
     const currectClass = circleTurn ? CIRCLE_CLASS : X_CLASS;
@@ -43,6 +48,7 @@ function handleClick(e){
     }
 }
 
+// Show the winning/draw message.
 function endGame(draw){
     if (draw){
         winningMessageTextElement.innerText = 'Draw!'
@@ -68,6 +74,7 @@ function swapTurns(){
     circleTurn = !circleTurn;
 }
 
+// Hover state on which class we are currently using.
 function setBoardHoverClass(){
     board.classList.remove(X_CLASS);
     board.classList.remove(CIRCLE_CLASS);
@@ -79,6 +86,7 @@ function setBoardHoverClass(){
     }
 }
 
+// loop throught the cell to decide who is the winner.
 function checkWin(currentClass){
     return WINNING_COMBINATIONS.some(combination => {
         return combination.every(index => {
